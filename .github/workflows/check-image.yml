@@ -1,0 +1,39 @@
+name: Build Image and Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    types:
+      - opened  # Trigger the workflow when a pull request is opened
+      - synchronize  # Trigger the workflow when a pull request is synchronized (updated)
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/react-three-app:latest .
+
+      - name: Run Docker Container
+        run: |
+          docker run -d --name my-app ${{ secrets.DOCKER_USERNAME }}/react-three-app:latest
+          sleep 10
+
+      - name: Check Container Health
+        run: |
+          if docker ps -f "name=my-app" | grep -q "my-app"; then
+            echo "Container is running."
+          else
+            echo "Container is not running."
+            exit 1
+          fi
