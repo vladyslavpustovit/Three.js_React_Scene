@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import ThreeScene from "../threeScene/threeScene";
 
+// Test
 function App() {
     return (
         <div className="min-h-screen flex items-center justify-center">
