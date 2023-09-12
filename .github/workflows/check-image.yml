@@ -2,7 +2,7 @@ name: Build Image and Check
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
     types:
       - opened  # Trigger the workflow when a pull request is opened
       - synchronize  # Trigger the workflow when a pull request is synchronized (updated)

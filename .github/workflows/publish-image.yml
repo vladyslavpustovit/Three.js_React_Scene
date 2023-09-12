@@ -2,7 +2,7 @@ name: Build, Login and Push
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
     types:
       - closed  # Trigger the workflow when a pull request is closed
 
